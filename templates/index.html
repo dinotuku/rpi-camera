@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>RPI EYES</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="{{ url_for('static',filename='css/materialize.min.css') }}" rel="stylesheet" type="text/css" />
+  <link href="{{ url_for('static',filename='css/nouislider.min.css') }}" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/index.css') }}" type="text/css">
+  <link rel="shortcut icon" href="{{ url_for('static',filename='img/favicon.png') }}" type="image/png">
+</head>
+
+<body>
+  <nav>
+    <div class="nav-wrapper valign-wrapper light-green">
+      <a href="/" class="brand-logo center">RPI EYES</a>
+    </div>
+  </nav>
+  <main class="valign-wrapper">
+    <div class="container">
+      <div class="row">
+        <div class="col s12 m10 offset-m1 l8 offset-l2">
+          <div class="card z-depth-5">
+            <div class="card-action center row">
+              <div class="input-field col s4">
+                <select class="awb-mode">
+                  <option value="off">off</option>
+                  <option value="auto">auto</option>
+                  <option value="sunlight">sunlight</option>
+                  <option value="cloudy">cloudy</option>
+                  <option value="shade">shade</option>
+                  <option value="tungsten">tungsten</option>
+                  <option value="fluorescent">fluorescent</option>
+                  <option value="incandescent">incandescent</option>
+                  <option value="flash">flash</option>
+                  <option value="horizon">horizon</option>
+                </select>
+                <label>AWB Mode</label>
+              </div>
+              <div class="input-field col s4">
+                <select class="exposure-mode">
+                  <option value="off">off</option>
+                  <option value="auto">auto</option>
+                  <option value="night">night</option>
+                  <option value="nightpreview">nightpreview</option>
+                  <option value="backlight">backlight</option>
+                  <option value="spotlight">spotlight</option>
+                  <option value="sports">sports</option>
+                  <option value="beach">beach</option>
+                  <option value="verylong">verylong</option>
+                  <option value="fixedfps">fixedfps</option>
+                  <option value="antishake">antishake</option>
+                  <option value="fireworks">fireworks</option>
+                </select>
+                <label>Exposure Mode</label>
+              </div>
+              <div class="input-field col s4">
+                <select class="image-effect">
+                  <option value="none">none</option>
+                  <option value="negative">negative</option>
+                  <option value="solarize">solarize</option>
+                  <option value="sketch">sketch</option>
+                  <option value="denoise">denoise</option>
+                  <option value="emboss">emboss</option>
+                  <option value="oilpaint">oilpaint</option>
+                  <option value="hatch">hatch</option>
+                  <option value="gpen">gpen</option>
+                  <option value="pastel">pastel</option>
+                  <option value="watercolor">watercolor</option>
+                  <option value="film">film</option>
+                  <option value="blur">blur</option>
+                  <option value="saturation">saturation</option>
+                  <option value="colorswap">colorswap</option>
+                  <option value="washedout">washedout</option>
+                  <option value="posterise">posterise</option>
+                  <option value="colorpoint">colorpoint</option>
+                  <option value="colorbalance">colorbalance</option>
+                  <option value="cartoon">cartoon</option>
+                  <option value="deinterlace1">deinterlace1</option>
+                  <option value="deinterlace2">deinterlace2</option>
+                </select>
+                <label>Image Effect</label>
+              </div>
+            </div>
+            <div class="card-action empty-place"></div>
+            <div class="card-image">
+              <div class="control-panel">
+                <ul class="collapsible" data-collapsible="accordion">
+                  <li>
+                    <div class="collapsible-header center">
+                      <i class="material-icons">dehaze</i>
+                    </div>
+                    <div class="collapsible-body">
+                      <div class="card-action">
+                        <label>Brightness</label>
+                        <div id="brightness-slider"></div>
+                      </div>
+                      <div class="card-action">
+                        <label>Contrast</label>
+                        <div id="contrast-slider"></div>
+                      </div>
+                      <div class="card-action">
+                        <label>Saturation</label>
+                        <div id="saturation-slider"></div>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <img class="stream" src="{{ url_for('video_feed') }}">
+            </div>
+
+            <div class="card-action center">
+              <a class="waves-effect waves-light btn light-green" href="/shutter">
+                <i class="material-icons center">camera</i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="hidden-receiver">
+      <div class="brightness-val">
+        {% if brightness %} {{ brightness }} {% endif %}
+      </div>
+      <div class="contrast-val">
+        {% if contrast %} {{ contrast }} {% endif %}
+      </div>
+      <div class="saturation-val">
+        {% if saturation %} {{ saturation }} {% endif %}
+      </div>
+      <div class="awb-mode-val">
+        {% if awb_mode %} {{ awb_mode }} {% endif %}
+      </div>
+      <div class="exposure-mode-val">
+        {% if exposure_mode %} {{ exposure_mode }} {% endif %}
+      </div>
+      <div class="image-effect-val">
+        {% if image_effect %} {{ image_effect }} {% endif %}
+      </div>
+    </div>
+  </main>
+  <footer class="page-footer light-green">
+    <div class="footer-copyright">
+      <div class="container">
+        <span class="easteregg-trigger">© 2017 Copyright 我覺得可以</span>
+        <div class="easteregg scale-transition scale-out">
+          <i class="material-icons">sentiment_very_satisfied</i>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="{{ url_for('static',filename='js/materialize.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static',filename='js/nouislider.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static',filename='js/wNumb.js') }}"></script>
+<script>
+  $(document).ready(function () {
+    var brightnessSlider = $('#brightness-slider')[0];
+    noUiSlider.create(brightnessSlider, {
+      start: Number($('.brightness-val').html().trim()),
+      step: 1,
+      orientation: 'horizontal', // 'horizontal' or 'vertical'
+      range: {
+        'min': 0,
+        'max': 100
+      },
+      format: wNumb({
+        decimals: 0
+      })
+    });
+    brightnessSlider.noUiSlider.on('end', function () {
+      var ec_url = '/brightness?level=' + brightnessSlider.noUiSlider.get();
+      window.location = ec_url;
+    });
+
+    var contrastSlider = $('#contrast-slider')[0];
+    noUiSlider.create(contrastSlider, {
+      start: Number($('.contrast-val').html().trim()),
+      step: 1,
+      orientation: 'horizontal', // 'horizontal' or 'vertical'
+      range: {
+        'min': -100,
+        'max': 100
+      },
+      format: wNumb({
+        decimals: 0
+      })
+    });
+    contrastSlider.noUiSlider.on('end', function () {
+      var ec_url = '/contrast?level=' + contrastSlider.noUiSlider.get();
+      window.location = ec_url;
+    });
+
+    var saturationSlider = $('#saturation-slider')[0];
+    noUiSlider.create(saturationSlider, {
+      start: Number($('.saturation-val').html().trim()),
+      step: 1,
+      orientation: 'horizontal', // 'horizontal' or 'vertical'
+      range: {
+        'min': -100,
+        'max': 100
+      },
+      format: wNumb({
+        decimals: 0
+      })
+    });
+    saturationSlider.noUiSlider.on('end', function () {
+      var ec_url = '/saturation?level=' + saturationSlider.noUiSlider.get();
+      window.location = ec_url;
+    });
+
+    $('.awb-mode').val($('.awb-mode-val').html().trim());
+    $('.exposure-mode').val($('.exposure-mode-val').html().trim());
+    $('.image-effect').val($('.image-effect-val').html().trim());
+
+    $('select').material_select('destroy');
+    $('select').material_select();
+
+    $('.awb-mode').change(function () {
+      if ($(this).val() !== '') {
+        var am_url = '/awb_mode?mode=' + $(this).val();
+        window.location = am_url;
+      }
+    });
+    $('.exposure-mode').change(function () {
+      if ($(this).val() !== '') {
+        var em_url = '/exposure_mode?mode=' + $(this).val();
+        window.location = em_url;
+      }
+    });
+    $('.image-effect').change(function () {
+      if ($(this).val() !== '') {
+        var ie_url = '/image_effect?mode=' + $(this).val();
+        window.location = ie_url;
+      }
+    });
+
+    $('.easteregg-trigger').click(function () {
+      if ($('.easteregg').hasClass('scale-out')) {
+        $('.easteregg').removeClass('scale-out');
+      } else {
+        $('.easteregg').addClass('scale-out');
+      }
+    });
+  });
+</script>
+
+</html>

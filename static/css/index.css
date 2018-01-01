@@ -1,0 +1,102 @@
+* {
+  font-family: 'Roboto', sans-serif;
+}
+
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+nav {
+  height: 72px;
+}
+
+nav .brand-logo {
+  font-size: 2.4em;
+  font-weight: 500;
+  letter-spacing: 3px;
+}
+
+main {
+  flex: 1 0 auto;
+  background-color: #8bc34a;
+}
+
+.dropdown-content li>span {
+  color: #8bc34a;
+}
+
+.row.card-action {
+  margin: 0 !important;
+  padding-bottom: 12px;
+}
+
+.card-action.empty-place {
+  border-top: none;
+}
+
+.control-panel {
+  position: absolute;
+  width: 100%;
+  z-index: 1;
+}
+
+.control-panel label {
+  color: white;
+}
+
+.control-panel .card-action {
+  border-top: none;
+}
+
+.collapsible {
+  margin: 0;
+  border: none;
+  box-shadow: none;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.collapsible-header {
+  position: absolute;
+  top: -50px;
+  width: 100%;
+  justify-content: center;
+  border-bottom: none;
+  background-color: transparent;
+}
+
+.collapsible-header .material-icons {
+  margin: 0;
+}
+
+.collapsible-body {
+  border-bottom: none;
+  padding-top: 0;
+  padding-bottom: 12px;
+}
+
+.card-image {
+  background-color: #fff;
+}
+
+.hidden-receiver {
+  display: none;
+}
+
+.page-footer {
+  padding-top: 0;
+}
+
+.page-footer .footer-copyright {
+  color: #FFF;
+  background-color: transparent;
+}
+
+.easteregg-trigger {
+  cursor: pointer;
+}
+
+.easteregg {
+  float: right;
+}

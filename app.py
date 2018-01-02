@@ -62,6 +62,8 @@ def _cmd(cmd=None):
     elif cmd == 'shutter':
         frame = camera.get_frame()
         image = Image.open(io.BytesIO(frame))
+        if not os.path.exists('images'):
+            os.makedirs('images')
         counter = len([name for name in os.listdir('images') if os.path.isfile(
             os.path.join('images', name)) and name[:5] == 'image'])
         image.save("images/image_{}.jpg".format(counter), "JPEG")

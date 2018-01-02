@@ -14,6 +14,7 @@ class Camera(BaseCamera):
         self.brightness = 50
         self.contrast = 0
         self.saturation = 0
+        self.state = 'close'
         super().__init__()
 
     @staticmethod

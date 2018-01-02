@@ -13,6 +13,7 @@ class Camera(BaseCamera):
         self.contrast = 0
         self.saturation = 0
         self.rotation = 180
+        self.state = 'close'
         super().__init__()
 
     def frames(self):

@@ -6,13 +6,14 @@ CEED Raspberry Pi Camera Tutorial
 
 import io
 import os
+import sys
 from flask import Flask, render_template, redirect, request, url_for, Response
 from PIL import Image
 
-# Raspberry Pi camera module (requires picamera package)
-from camera_pi import Camera
-# Testing camera module
-# from camera import Camera
+if sys.argv[1] == 'test':
+    from camera import Camera
+else:
+    from camera_pi import Camera
 
 app = Flask(__name__)
 # app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
@@ -32,18 +33,24 @@ def index():
         awb_mode=camera.awb_mode,
         exposure_mode=camera.exposure_mode,
         image_effect=camera.image_effect,
+        state=camera.state
     )
 
 
 @app.route('/<cmd>')
 def _cmd(cmd=None):
     """ Control commands """
+    camera.state = 'close'
+
     if cmd == 'brightness':
         camera.brightness = int(request.args.get('level'))
+        camera.state = 'open'
     if cmd == 'contrast':
         camera.contrast = int(request.args.get('level'))
+        camera.state = 'open'
     if cmd == 'saturation':
         camera.saturation = int(request.args.get('level'))
+        camera.state = 'open'
     elif cmd == 'awb_mode':
         camera.awb_mode = request.args.get('mode')
     elif cmd == 'exposure_mode':

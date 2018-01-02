@@ -141,6 +141,9 @@
       <div class="image-effect-val">
         {% if image_effect %} {{ image_effect }} {% endif %}
       </div>
+      <div class="state-val">
+        {% if state %} {{ state }} {% endif %}
+      </div>
     </div>
   </main>
   <footer class="page-footer light-green">
@@ -160,6 +163,15 @@
 <script type="text/javascript" src="{{ url_for('static',filename='js/wNumb.js') }}"></script>
 <script>
   $(document).ready(function () {
+    if ($('.state-val').html().trim() === 'open') {
+      $('.collapsible').collapsible('open', 0);
+    }
+    $('.collapsible').collapsible({
+      accordion: true,
+      onClose: function (el) {
+        $('.state-val').html('close');
+      }
+    });
     var brightnessSlider = $('#brightness-slider')[0];
     noUiSlider.create(brightnessSlider, {
       start: Number($('.brightness-val').html().trim()),

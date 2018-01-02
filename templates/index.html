@@ -23,7 +23,7 @@
     <div class="container">
       <div class="row">
         <div class="col s12 m10 offset-m1 l8 offset-l2">
-          <div class="card z-depth-5">
+          <div class="card z-depth-5" id="camera-ui">
             <div class="card-action center row">
               <div class="input-field col s4">
                 <select class="awb-mode">
@@ -112,10 +112,13 @@
               </div>
               <img class="stream" src="{{ url_for('video_feed') }}">
             </div>
-
             <div class="card-action center">
               <a class="waves-effect waves-light btn light-green" href="/shutter">
                 <i class="material-icons center">camera</i>
+              </a>
+              <a class="waves-effect waves-light gallery-icon" href="/gallery">
+                <!-- <i class="material-icons center">image</i> -->
+                <img src="{{ url_for('static',filename='img/icon.png') }}">
               </a>
             </div>
           </div>
@@ -144,6 +147,9 @@
       <div class="state-val">
         {% if state %} {{ state }} {% endif %}
       </div>
+      <div class="recent-file-name-val">
+        {% if recent_file_name %} {{ recent_file_name }} {% endif %}
+      </div>
     </div>
   </main>
   <footer class="page-footer light-green">
@@ -163,6 +169,21 @@
 <script type="text/javascript" src="{{ url_for('static',filename='js/wNumb.js') }}"></script>
 <script>
   $(document).ready(function () {
+    $('.awb-mode').val($('.awb-mode-val').html().trim());
+    $('.exposure-mode').val($('.exposure-mode-val').html().trim());
+    $('.image-effect').val($('.image-effect-val').html().trim());
+
+    $('select').material_select('destroy');
+    $('select').material_select();
+    $('.slider').slider();
+
+    if ($('.recent-file-name-val').html().trim() !== '') {
+      var recentFileName = $('.recent-file-name-val').html().trim();
+      var oldSrc = $('.gallery-icon img').attr('src');
+      var newSrc = '/static/pic/' + recentFileName;
+      $('.gallery-icon img').attr('src', newSrc);
+    }
+
     if ($('.state-val').html().trim() === 'open') {
       $('.collapsible').collapsible('open', 0);
     }
@@ -225,13 +246,6 @@
       var ec_url = '/saturation?level=' + saturationSlider.noUiSlider.get();
       window.location = ec_url;
     });
-
-    $('.awb-mode').val($('.awb-mode-val').html().trim());
-    $('.exposure-mode').val($('.exposure-mode-val').html().trim());
-    $('.image-effect').val($('.image-effect-val').html().trim());
-
-    $('select').material_select('destroy');
-    $('select').material_select();
 
     $('.awb-mode').change(function () {
       if ($(this).val() !== '') {

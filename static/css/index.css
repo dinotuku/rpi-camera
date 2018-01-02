@@ -23,6 +23,10 @@ main {
   background-color: #8bc34a;
 }
 
+.card .card-action {
+  padding: 12px 24px;
+}
+
 .dropdown-content li>span {
   color: #8bc34a;
 }
@@ -76,12 +80,43 @@ main {
   padding-bottom: 12px;
 }
 
+.stream {
+  width: 640px;
+}
+
 .card-image {
   background-color: #fff;
 }
 
+.gallery-icon {
+  position: absolute;
+  right: 24px;
+  margin: 0 !important;
+}
+
+.gallery-icon img {
+  height: 36px;
+  border-radius: 2px;
+}
+
 .hidden-receiver {
   display: none;
+}
+
+#image-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  overflow: auto;
+}
+
+#image-gallery .material-placeholder {
+  width: 29%;
+  margin: 12px 2%;
+}
+
+#image-gallery img {
+  width: 100%;
+  margin: 0;
 }
 
 .page-footer {

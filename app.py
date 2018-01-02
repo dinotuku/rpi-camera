@@ -4,16 +4,23 @@
 CEED Raspberry Pi Camera Tutorial
 """
 
+from datetime import datetime
 import io
 import os
 import sys
 from flask import Flask, render_template, redirect, request, url_for, Response
 from PIL import Image
 
-if sys.argv[1] == 'test':
+if len(sys.argv) != 2:
+    print('Wrong usage! It should be --> python app.py <Type(test or pi)>')
+    sys.exit()
+elif sys.argv[1] == 'test':
     from camera import Camera
-else:
+elif sys.argv[1] == 'pi':
     from camera_pi import Camera
+else:
+    print('Wrong usage! Type should be test or pi')
+    sys.exit()
 
 app = Flask(__name__)
 # app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
@@ -21,10 +28,18 @@ app = Flask(__name__)
 
 camera = Camera()
 
+if not os.path.exists('static/pic'):
+    os.makedirs('static/pic')
+
 
 @app.route('/')
 def index():
-    """ Video streaming home page. """
+    """ Home page """
+    recent_file_name = ''
+    files = [name for name in os.listdir('static/pic') if os.path.isfile(
+        os.path.join('static/pic', name)) and name[:5] == 'image']
+    if files:
+        recent_file_name = files[-1]
     return render_template(
         'index.html',
         brightness=camera.brightness,
@@ -33,7 +48,20 @@ def index():
         awb_mode=camera.awb_mode,
         exposure_mode=camera.exposure_mode,
         image_effect=camera.image_effect,
-        state=camera.state
+        state=camera.state,
+        recent_file_name=recent_file_name
+    )
+
+
+@app.route('/gallery')
+def gallery():
+    """ Gallery page """
+    files = [name for name in os.listdir('static/pic') if os.path.isfile(
+        os.path.join('static/pic', name)) and name[:5] == 'image']
+    files_names = ','.join(files)
+    return render_template(
+        'gallery.html',
+        files_names=files_names
     )
 
 
@@ -62,11 +90,10 @@ def _cmd(cmd=None):
     elif cmd == 'shutter':
         frame = camera.get_frame()
         image = Image.open(io.BytesIO(frame))
-        if not os.path.exists('images'):
-            os.makedirs('images')
-        counter = len([name for name in os.listdir('images') if os.path.isfile(
-            os.path.join('images', name)) and name[:5] == 'image'])
-        image.save("images/image_{}.jpg".format(counter), "JPEG")
+        counter = len([name for name in os.listdir('static/pic') if os.path.isfile(
+            os.path.join('static/pic', name)) and name[:5] == 'image'])
+        timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+        image.save("static/pic/image_{}_{}.jpg".format(counter, timestamp), "JPEG")
 
     return redirect(url_for('index'))
 

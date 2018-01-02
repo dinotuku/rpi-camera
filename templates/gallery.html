@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>RPI EYES Gallery</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="{{ url_for('static',filename='css/materialize.min.css') }}" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/index.css') }}" type="text/css">
+  <link rel="shortcut icon" href="{{ url_for('static',filename='img/favicon.png') }}" type="image/png">
+</head>
+
+<body>
+  <nav>
+    <div class="nav-wrapper valign-wrapper light-green">
+      <a href="/" class="brand-logo center">GO BACK</a>
+    </div>
+  </nav>
+  <main class="valign-wrapper">
+    <div class="container">
+      <div class="row">
+        <div class="col s12 m10 offset-m1 l8 offset-l2">
+          <div class="card z-depth-5" id="image-gallery">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="hidden-receiver">
+      <div class="files-names-val">
+        {% if files_names %} {{ files_names }} {% endif %}
+      </div>
+    </div>
+  </main>
+  <footer class="page-footer light-green">
+    <div class="footer-copyright">
+      <div class="container">
+        <span class="easteregg-trigger">© 2017 Copyright 我覺得可以</span>
+        <div class="easteregg scale-transition scale-out">
+          <i class="material-icons">sentiment_very_satisfied</i>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="{{ url_for('static',filename='js/materialize.min.js') }}"></script>
+<script>
+  $(document).ready(function () {
+    $('.card').height($('.card').width());
+
+    if ($('.files-names-val').html().trim() !== '') {
+      var filesNames = $('.files-names-val').html().trim().split(',');
+      for (var i = 0; i < filesNames.length; i += 1) {
+        var insertHtml = '<img class="materialboxed" data-caption="CAPTION" src="/static/pic/NAME">';
+        var timestamp = filesNames[i].replace(/image_\d_/, '').replace(/-/, '/').replace(/-/, '/').replace(/_/, ' ').replace(/-/, ':').replace(/-/, ':').replace(/.jpg/, '');
+        $('#image-gallery').append(insertHtml.replace(/NAME/, filesNames[i]).replace(/CAPTION/, timestamp));
+      }
+      $('.materialboxed').materialbox();
+    }
+
+    $('.easteregg-trigger').click(function () {
+      if ($('.easteregg').hasClass('scale-out')) {
+        $('.easteregg').removeClass('scale-out');
+      } else {
+        $('.easteregg').addClass('scale-out');
+      }
+    });
+  });
+</script>
+
+</html>

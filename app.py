@@ -38,6 +38,7 @@ def index():
     recent_file_name = ''
     files = [name for name in os.listdir('static/pic') if os.path.isfile(
         os.path.join('static/pic', name)) and name[:5] == 'image']
+    files.sort()
     if files:
         recent_file_name = files[-1]
     return render_template(
@@ -58,6 +59,7 @@ def gallery():
     """ Gallery page """
     files = [name for name in os.listdir('static/pic') if os.path.isfile(
         os.path.join('static/pic', name)) and name[:5] == 'image']
+    files.sort()
     files_names = ','.join(files)
     return render_template(
         'gallery.html',
@@ -90,10 +92,24 @@ def _cmd(cmd=None):
     elif cmd == 'shutter':
         frame = camera.get_frame()
         image = Image.open(io.BytesIO(frame))
-        counter = len([name for name in os.listdir('static/pic') if os.path.isfile(
-            os.path.join('static/pic', name)) and name[:5] == 'image'])
+        counter = 0
+        files = [name for name in os.listdir('static/pic') if os.path.isfile(
+            os.path.join('static/pic', name)) and name[:5] == 'image']
+        files.sort()
+
+        if files:
+            counter = int(files[-1].split('_')[1]) + 1
+
         timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
         image.save("static/pic/image_{}_{}.jpg".format(counter, timestamp), "JPEG")
+    elif cmd == 'remove':
+        idx = int(request.args.get('index'))
+        files = [name for name in os.listdir('static/pic') if os.path.isfile(
+            os.path.join('static/pic', name)) and name[:5] == 'image']
+        files.sort()
+        os.remove(os.path.join('static/pic', files[idx]))
+
+        return redirect(url_for('gallery'))
 
     return redirect(url_for('index'))
 

@@ -110,13 +110,28 @@ main {
 }
 
 #image-gallery .material-placeholder {
-  width: 29%;
-  margin: 12px 2%;
+  width: 27%;
+  margin: 12px 3%;
 }
 
 #image-gallery img {
   width: 100%;
   margin: 0;
+}
+
+.material-placeholder {
+  position: relative;
+}
+
+.remove-icon {
+  position: absolute;
+  top: -0.6rem;
+  left: -0.6rem;
+  cursor: pointer;
+  color: #DF6671;
+  background-color: #EEDDDE;
+  font-size: 1.2rem;
+  border-radius: 1.2rem;
 }
 
 .page-footer {

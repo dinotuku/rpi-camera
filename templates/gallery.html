@@ -58,6 +58,9 @@
         $('#image-gallery').append(insertHtml.replace(/NAME/, filesNames[i]).replace(/CAPTION/, timestamp));
       }
       $('.materialboxed').materialbox();
+      $('.material-placeholder').each(function (index) {
+        $(this).append('<a href="/remove?index=' + index + '"><i class="material-icons remove-icon">clear</i></a>')
+      });
     }
 
     $('.easteregg-trigger').click(function () {

@@ -21,6 +21,7 @@ class Camera(BaseCamera):
             # Initial settings
             camera.resolution = (640, 480)
             camera.rotation = self.rotation
+            camera.hflip = True
 
             # let camera warm up
             time.sleep(2)

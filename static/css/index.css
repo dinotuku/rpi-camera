@@ -169,17 +169,18 @@ main {
 
 .remove-btn {
   position: absolute;
-  top: -0.6rem;
-  left: -0.6rem;
-  width: 1.2rem;
-  height: 1.2rem;
-  line-height: 1.4rem;
+  top: -0.7rem;
+  left: -0.7rem;
+  width: 1.4rem;
+  height: 1.4rem;
+  line-height: 1.6rem;
 }
 
 .clear-icons {
   font-size: 0.8rem !important;
   font-weight: 900;
   line-height: 0 !important;
+  color: transparent !important;
 }
 
 .empty-reminder {

@@ -108,7 +108,7 @@ def _cmd(cmd=None):
         files = [name for name in os.listdir('static/pic') if os.path.isfile(
             os.path.join('static/pic', name)) and name[:5] == 'image']
         files.sort()
-        os.remove(os.path.join('static/pic', files[idx]))
+        os.remove(os.path.join('static/pic', list(reversed(files))[idx]))
 
         return redirect(url_for('gallery'))
 

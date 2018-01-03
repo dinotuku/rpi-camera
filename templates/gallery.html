@@ -15,7 +15,9 @@
 <body>
   <nav>
     <div class="nav-wrapper valign-wrapper ultra-violet z-depth-2">
-      <a href="/" class="brand-logo center">GO BACK</a>
+      <div class="brand-logo center">
+        <a href="/">GO BACK</a>
+      </div>
     </div>
   </nav>
   <main class="valign-wrapper">
@@ -74,7 +76,7 @@
       $('.modal').modal({
         startingTop: '30%',
         endingTop: '35%',
-        ready: function(modal, trigger) {
+        ready: function (modal, trigger) {
           var index = trigger[0].classList[1].replace(/-trigger/, '');
           $('.' + index + '-trigger').addClass('pulse');
           $('.sure-btn').attr('href', '/remove?index=' + index);

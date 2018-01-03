@@ -15,7 +15,7 @@
 
 <body>
   <nav>
-    <div class="nav-wrapper valign-wrapper ultra-violet z-depth-2">
+    <div class="nav-wrapper ultra-violet z-depth-2">
       <a href="/" class="brand-logo center">RPI EYES</a>
     </div>
   </nav>
@@ -113,10 +113,10 @@
               <img class="stream" src="{{ url_for('video_feed') }}">
             </div>
             <div class="card-action center">
-              <a class="waves-effect waves-light btn ultra-violet" href="/shutter">
+              <a href="/shutter" class="waves-effect waves-light btn ultra-violet">
                 <i class="material-icons center">camera</i>
               </a>
-              <a class="waves-effect waves-light gallery-icon" href="/gallery">
+              <a href="/gallery" class="waves-effect waves-light gallery-icon">
                 <!-- <i class="material-icons center">image</i> -->
                 <img src="{{ url_for('static',filename='img/icon.png') }}">
               </a>

@@ -24,6 +24,8 @@ nav .brand-logo {
   font-size: 2.4em;
   font-weight: 500;
   letter-spacing: 3px;
+  -webkit-transform: translateX(-50%) translateY(9px) !important;
+  transform: translateX(-50%) translateY(9px) !important;
 }
 
 main {
@@ -173,4 +175,11 @@ main {
 
 .easteregg {
   float: right;
+}
+
+@media only screen and (min-width: 600px) {
+  nav .brand-logo {
+    -webkit-transform: translateX(-50%) translateY(5px) !important;
+    transform: translateX(-50%) translateY(5px) !important;
+  }
 }

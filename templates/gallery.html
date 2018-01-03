@@ -62,7 +62,7 @@
 
     if ($('.files-names-val').html().trim() !== '') {
       var filesNames = $('.files-names-val').html().trim().split(',');
-      for (var i = 0; i < filesNames.length; i += 1) {
+      for (var i = filesNames.length - 1; i >= 0; i -= 1) {
         var insertHtml = '<img class="materialboxed" data-caption="CAPTION" src="/static/pic/NAME">';
         var timestamp = filesNames[i].replace(/image_\d_/, '').replace(/-/, '/').replace(/-/, '/').replace(/_/, ' ').replace(/-/, ':').replace(/-/, ':').replace(/.jpg/, '');
         $('#image-gallery').append(insertHtml.replace(/NAME/, filesNames[i]).replace(/CAPTION/, timestamp));

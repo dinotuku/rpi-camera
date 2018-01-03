@@ -14,7 +14,7 @@
 
 <body>
   <nav>
-    <div class="nav-wrapper valign-wrapper light-green">
+    <div class="nav-wrapper valign-wrapper ultra-violet z-depth-2">
       <a href="/" class="brand-logo center">GO BACK</a>
     </div>
   </nav>
@@ -28,11 +28,11 @@
       </div>
     </div>
     <div id="modal1" class="modal">
-      <div class="modal-content light-green white-text">
+      <div class="modal-content ultra-violet white-text">
         <h4>WARNING</h4>
         <p>Are you sure you want to delete it?</p>
       </div>
-      <div class="modal-footer light-green">
+      <div class="modal-footer ultra-violet">
         <a href="#!" class="modal-action modal-close white-text waves-effect waves-green btn-flat">NOPE</a>
         <a href="#!" class="modal-action modal-close white-text waves-effect waves-green btn-flat sure-btn">SURE</a>
       </div>
@@ -43,7 +43,7 @@
       </div>
     </div>
   </main>
-  <footer class="page-footer light-green">
+  <footer class="page-footer ultra-violet">
     <div class="footer-copyright">
       <div class="container">
         <span class="easteregg-trigger">© 2017 Copyright 我覺得可以</span>
@@ -63,13 +63,13 @@
     if ($('.files-names-val').html().trim() !== '') {
       var filesNames = $('.files-names-val').html().trim().split(',');
       for (var i = filesNames.length - 1; i >= 0; i -= 1) {
-        var insertHtml = '<img class="materialboxed" data-caption="CAPTION" src="/static/pic/NAME">';
+        var insertHtml = '<img class="materialboxed z-depth-2" data-caption="CAPTION" src="/static/pic/NAME">';
         var timestamp = filesNames[i].replace(/image_\d_/, '').replace(/-/, '/').replace(/-/, '/').replace(/_/, ' ').replace(/-/, ':').replace(/-/, ':').replace(/.jpg/, '');
         $('#image-gallery').append(insertHtml.replace(/NAME/, filesNames[i]).replace(/CAPTION/, timestamp));
       }
       $('.materialboxed').materialbox();
       $('.material-placeholder').each(function (index) {
-        $(this).append('<a class="modal-trigger ' + index + '-trigger red lighten-1 btn-floating remove-btn" href="#modal1"><i class="material-icons clear-icons">clear</i></a>')
+        $(this).append('<a class="modal-trigger ' + index + '-trigger raspberry btn-floating remove-btn" href="#modal1"><i class="material-icons clear-icons">clear</i></a>')
       });
       $('.modal').modal({
         startingTop: '30%',

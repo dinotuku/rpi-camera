@@ -2,6 +2,14 @@
   font-family: 'Roboto', sans-serif;
 }
 
+.ultra-violet {
+  background-color: #5F4B8B !important;
+}
+
+.raspberry {
+  background-color: #D72D5C;
+}
+
 body {
   display: flex;
   min-height: 100vh;
@@ -20,7 +28,15 @@ nav .brand-logo {
 
 main {
   flex: 1 0 auto;
-  background-color: #8bc34a;
+  background-color: #5F4B8B;
+}
+
+.row {
+  margin-bottom: 0;
+}
+
+.card {
+  margin: 1rem 0 1rem 0;
 }
 
 .card .card-action {
@@ -28,7 +44,7 @@ main {
 }
 
 .dropdown-content li>span {
-  color: #8bc34a;
+  color: #5F4B8B;
 }
 
 .row.card-action {
@@ -121,6 +137,10 @@ main {
 
 .material-placeholder {
   position: relative;
+}
+
+#materialbox-overlay {
+  background-color: #5F4B8B;
 }
 
 .remove-btn {

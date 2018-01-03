@@ -27,6 +27,16 @@
         </div>
       </div>
     </div>
+    <div id="modal1" class="modal">
+      <div class="modal-content light-green white-text">
+        <h4>WARNING</h4>
+        <p>Are you sure you want to delete it?</p>
+      </div>
+      <div class="modal-footer light-green">
+        <a href="#!" class="modal-action modal-close white-text waves-effect waves-green btn-flat">NOPE</a>
+        <a href="#!" class="modal-action modal-close white-text waves-effect waves-green btn-flat sure-btn">SURE</a>
+      </div>
+    </div>
     <div class="hidden-receiver">
       <div class="files-names-val">
         {% if files_names %} {{ files_names }} {% endif %}
@@ -59,7 +69,19 @@
       }
       $('.materialboxed').materialbox();
       $('.material-placeholder').each(function (index) {
-        $(this).append('<a href="/remove?index=' + index + '"><i class="material-icons remove-icon">clear</i></a>')
+        $(this).append('<a class="modal-trigger ' + index + '-trigger red lighten-1 btn-floating remove-btn" href="#modal1"><i class="material-icons clear-icons">clear</i></a>')
+      });
+      $('.modal').modal({
+        startingTop: '30%',
+        endingTop: '35%',
+        ready: function(modal, trigger) {
+          var index = trigger[0].classList[1].replace(/-trigger/, '');
+          $('.' + index + '-trigger').addClass('pulse');
+          $('.sure-btn').attr('href', '/remove?index=' + index);
+        },
+        complete: function () {
+          $('.modal-trigger').removeClass('pulse');
+        }
       });
     }
 

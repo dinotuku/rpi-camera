@@ -123,17 +123,19 @@ main {
   position: relative;
 }
 
-.remove-icon {
+.remove-btn {
   position: absolute;
   top: -0.6rem;
   left: -0.6rem;
-  cursor: pointer;
-  color: #DF6671;
-  background-color: #DF6671;
   width: 1.2rem;
   height: 1.2rem;
-  font-size: 1.2rem;
-  border-radius: 1.2rem;
+  line-height: 1.4rem;
+}
+
+.clear-icons {
+  font-size: 0.8rem !important;
+  font-weight: 900;
+  line-height: 0 !important;
 }
 
 .page-footer {

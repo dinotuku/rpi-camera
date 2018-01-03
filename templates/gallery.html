@@ -86,7 +86,8 @@
         }
       });
     } else {
-      $('#image-gallery').append('Take some photos');
+      $('#image-gallery').addClass('valign-wrapper');
+      $('#image-gallery').append('<h class="center flow-text empty-reminder">Take some photos</h>');
     }
 
     $('.easteregg-trigger').click(function () {

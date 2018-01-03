@@ -113,10 +113,13 @@
               <img class="stream" src="{{ url_for('video_feed') }}">
             </div>
             <div class="card-action center">
+              <a href="/homework" class="waves-effect waves-light btn ultra-violet homework-btn">
+                <i class="material-icons center">filter_b_and_w</i>
+              </a>
               <a href="/shutter" class="waves-effect waves-light btn ultra-violet">
                 <i class="material-icons center">camera</i>
               </a>
-              <a href="/gallery" class="waves-effect waves-light gallery-icon">
+              <a href="/gallery" class="waves-effect waves-light gallery-btn">
                 <!-- <i class="material-icons center">image</i> -->
                 <img src="{{ url_for('static',filename='img/icon.png') }}">
               </a>
@@ -179,9 +182,9 @@
 
     if ($('.recent-file-name-val').html().trim() !== '') {
       var recentFileName = $('.recent-file-name-val').html().trim();
-      var oldSrc = $('.gallery-icon img').attr('src');
+      var oldSrc = $('.gallery-btn img').attr('src');
       var newSrc = '/static/pic/' + recentFileName;
-      $('.gallery-icon img').attr('src', newSrc);
+      $('.gallery-btn img').attr('src', newSrc);
     }
 
     if ($('.state-val').html().trim() === 'open') {

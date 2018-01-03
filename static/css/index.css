@@ -128,13 +128,19 @@ main {
   background-color: #fff;
 }
 
-.gallery-icon {
+.homework-btn {
+  position: absolute;
+  left: 24px;
+  margin: 0 !important;
+}
+
+.gallery-btn {
   position: absolute;
   right: 24px;
   margin: 0 !important;
 }
 
-.gallery-icon img {
+.gallery-btn img {
   height: 36px;
   border-radius: 2px;
 }

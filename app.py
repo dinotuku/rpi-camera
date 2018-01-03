@@ -90,6 +90,32 @@ def _cmd(cmd=None):
         camera.image_effect = request.args.get('mode')
     elif cmd == 'rotate':
         camera.rotation = (camera.rotation + 90) % 360
+    elif cmd == 'remove':
+        idx = int(request.args.get('index'))
+        files = [name for name in os.listdir('static/pic') if os.path.isfile(
+            os.path.join('static/pic', name)) and name[:5] == 'image']
+        files.sort()
+        os.remove(os.path.join('static/pic', list(reversed(files))[idx]))
+
+        return redirect(url_for('gallery'))
+    elif cmd == 'homework':
+        frame = camera.get_frame()
+        image = Image.open(io.BytesIO(frame))
+
+        """
+        Do Edge Detection
+        """
+
+        counter = 0
+        files = [name for name in os.listdir('static/pic') if os.path.isfile(
+            os.path.join('static/pic', name)) and name[:5] == 'image']
+        files.sort()
+
+        if files:
+            counter = int(files[-1].split('_')[1]) + 1
+
+        timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+        image.save("static/pic/image_{}_{}.jpg".format(counter, timestamp), "JPEG")
     elif cmd == 'shutter':
         frame = camera.get_frame()
         image = Image.open(io.BytesIO(frame))
@@ -103,14 +129,6 @@ def _cmd(cmd=None):
 
         timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
         image.save("static/pic/image_{}_{}.jpg".format(counter, timestamp), "JPEG")
-    elif cmd == 'remove':
-        idx = int(request.args.get('index'))
-        files = [name for name in os.listdir('static/pic') if os.path.isfile(
-            os.path.join('static/pic', name)) and name[:5] == 'image']
-        files.sort()
-        os.remove(os.path.join('static/pic', list(reversed(files))[idx]))
-
-        return redirect(url_for('gallery'))
 
     return redirect(url_for('index'))
 

@@ -12,7 +12,7 @@ from flask import Flask, render_template, redirect, request, url_for, Response
 from PIL import Image
 
 if len(sys.argv) < 2:
-    print('Wrong usage! It should be --> python3 app.py <Type(test or pi)> [Update Files(anything)]')
+    print('Wrong usage! It should be --> python3 app.py <test | pi> [set file max age to 0 and enable templates auto reload]')
     sys.exit()
 elif sys.argv[1] == 'test':
     from camera import Camera

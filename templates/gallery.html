@@ -14,10 +14,8 @@
 
 <body>
   <nav>
-    <div class="nav-wrapper valign-wrapper ultra-violet z-depth-2">
-      <div class="brand-logo center">
-        <a href="/">GO BACK</a>
-      </div>
+    <div class="nav-wrapper ultra-violet z-depth-2">
+      <a href="/" class="brand-logo center">GO BACK</a>
     </div>
   </nav>
   <main class="valign-wrapper">
@@ -35,8 +33,8 @@
         <p>Are you sure you want to delete it?</p>
       </div>
       <div class="modal-footer ultra-violet">
-        <a href="#!" class="modal-action modal-close white-text waves-effect waves-green btn-flat">NOPE</a>
-        <a href="#!" class="modal-action modal-close white-text waves-effect waves-green btn-flat sure-btn">SURE</a>
+        <a href="#!" class="modal-action modal-close white-text waves-effect waves-light btn-flat">NOPE</a>
+        <a href="#!" class="modal-action modal-close white-text waves-effect waves-light btn-flat sure-btn">SURE</a>
       </div>
     </div>
     <div class="hidden-receiver">
@@ -71,20 +69,24 @@
       }
       $('.materialboxed').materialbox();
       $('.material-placeholder').each(function (index) {
-        $(this).append('<a class="modal-trigger ' + index + '-trigger raspberry btn-floating remove-btn" href="#modal1"><i class="material-icons clear-icons">clear</i></a>')
+        $(this).append('<a class="modal-trigger ' + index + '-trigger ultra-violet btn-floating remove-btn" href="#modal1"><i class="material-icons clear-icons">clear</i></a>')
       });
       $('.modal').modal({
         startingTop: '30%',
         endingTop: '35%',
         ready: function (modal, trigger) {
           var index = trigger[0].classList[1].replace(/-trigger/, '');
-          $('.' + index + '-trigger').addClass('pulse');
+          $('.' + index + '-trigger').addClass('pulse raspberry');
+          $('.' + index + '-trigger').removeClass('ultra-violet');
           $('.sure-btn').attr('href', '/remove?index=' + index);
         },
         complete: function () {
-          $('.modal-trigger').removeClass('pulse');
+          $('.modal-trigger').removeClass('pulse raspberry');
+          $('.modal-trigger').addClass('ultra-violet');
         }
       });
+    } else {
+      $('#image-gallery').append('Take some photos');
     }
 
     $('.easteregg-trigger').click(function () {

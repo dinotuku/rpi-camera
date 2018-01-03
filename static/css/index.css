@@ -7,7 +7,15 @@
 }
 
 .raspberry {
-  background-color: #D72D5C;
+  background-color: #D72D5C !important;
+}
+
+.btn-floating:hover {
+  background-color: #D72D5C !important;
+}
+
+.btn-floating:focus {
+  background-color: #D72D5C !important;
 }
 
 body {
@@ -43,6 +51,19 @@ main {
 
 .card .card-action {
   padding: 12px 24px;
+}
+
+.caret {
+  color: #5F4B8B !important;
+}
+
+.input-field.col label {
+  color: #9B84C0;
+}
+
+.select-wrapper input.select-dropdown {
+  color: #5F4B8B;
+  border-bottom: 1px solid #5F4B8B;
 }
 
 .dropdown-content li>span {
@@ -90,6 +111,7 @@ main {
 
 .collapsible-header .material-icons {
   margin: 0;
+  color: #5F4B8B;
 }
 
 .collapsible-body {

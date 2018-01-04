@@ -11,8 +11,6 @@ import sys
 from flask import Flask, render_template, redirect, request, url_for, Response
 from PIL import Image
 
-from numpy import array
-from matplotlib import pyplot as plt
 import numpy as np
 import math
 

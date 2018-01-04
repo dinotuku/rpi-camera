@@ -156,8 +156,8 @@ main {
 }
 
 #image-gallery .material-placeholder {
-  width: 21%;
-  margin: 6% 6%;
+  width: 38%;
+  margin: 24px 6%;
 }
 
 #image-gallery img {

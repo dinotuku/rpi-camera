@@ -11,8 +11,14 @@ import sys
 from flask import Flask, render_template, redirect, request, url_for, Response
 from PIL import Image
 
+from numpy import array
+from matplotlib import pyplot as plt
+import numpy as np
+import math
+
 if len(sys.argv) < 2:
-    print('Wrong usage! It should be --> python3 app.py <test | pi> [set file max age to 0 and enable templates auto reload]')
+    print(
+        'Wrong usage! It should be --> python3 app.py <test | pi> [set file max age to 0 and enable templates auto reload]')
     sys.exit()
 elif sys.argv[1] == 'test':
     from camera import Camera
@@ -100,11 +106,38 @@ def _cmd(cmd=None):
         return redirect(url_for('gallery'))
     elif cmd == 'homework':
         frame = camera.get_frame()
-        image = Image.open(io.BytesIO(frame))
+        im = Image.open(io.BytesIO(frame))
 
-        """
-        Do Edge Detection
-        """
+        column, row = im.size
+        im_grey = im.convert('L')
+        im_array = np.array(im_grey)
+        im_db = im_array / 255.
+        im_r1 = np.zeros((row, column))
+        for i in range(0, row - 1):
+            for j in range(0, column - 1):
+                im_r1[i, j] = -1 * im_db[i, j] + 0 + 0 + 1 * im_db[i + 1, j + 1]
+                im_r1[i, j] = im_r1[i, j] * im_r1[i, j]
+
+        im_r2 = np.zeros((row, column))
+        for i in range(0, row - 1):
+            for j in range(0, column - 1):
+                im_r2[i, j] = 0 - 1 * im_db[i, j + 1] + 1 * im_db[i + 1, j] + 0
+                im_r2[i, j] = im_r2[i, j] * im_r2[i, j]
+        gradient = np.zeros((row, column))
+        for i in range(0, row - 1):
+            for j in range(0, column - 1):
+                gradient[i, j] = math.sqrt(im_r1[i, j] + im_r2[i, j])
+
+        threshold = 0.06
+        im_robert = np.zeros((row, column), dtype='uint8')
+        for i in range(0, row):
+            for j in range(0, column):
+                if (gradient[i, j] >= threshold):
+                    im_robert[i, j] = 0
+                else:
+                    im_robert[i, j] = 255
+
+        image = Image.fromarray(im_robert)
 
         counter = 0
         files = [name for name in os.listdir('static/pic') if os.path.isfile(

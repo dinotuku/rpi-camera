@@ -66,8 +66,17 @@ main {
   border-bottom: 1px solid #5F4B8B;
 }
 
+.select-wrapper ul {
+  top: 43px !important;
+}
+
+.dropdown-content {
+  background-color: rgba(0, 0, 0, 0.5);
+  max-height: 400px;
+}
+
 .dropdown-content li>span {
-  color: #5F4B8B;
+  color: #FFF;
 }
 
 .row.card-action {

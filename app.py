@@ -1,37 +1,39 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 """
-CEED Raspberry Pi Camera Tutorial
+Raspberry Pi Camera Tutorial
 """
 
+from argparse import ArgumentParser
 from datetime import datetime
 import io
+import math
 import os
-import sys
+
 from flask import Flask, render_template, redirect, request, url_for, Response
+import numpy as np
 from PIL import Image
 
-import numpy as np
-import math
+# Simple argument parser
+parser = ArgumentParser()
+parser.add_argument('-t', '--test', action='store_true', description='Run this app without using rpi camera')
+args = parser.parse_args()
 
-if len(sys.argv) < 2:
-    print(
-        'Wrong usage! It should be --> python3 app.py <test | pi> [set file max age to 0 and enable templates auto reload]')
-    sys.exit()
-elif sys.argv[1] == 'test':
+if args.test:
     from camera import Camera
-elif sys.argv[1] == 'pi':
-    from camera_pi import Camera
 else:
-    print('Wrong usage! Type should be test or pi')
-    sys.exit()
+    from camera_pi import Camera
 
+# Setup Flask
 app = Flask(__name__)
-camera = Camera()
 
-if len(sys.argv) > 2:
-    app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
-    app.config['TEMPLATES_AUTO_RELOAD'] = True
+# Debug settings
+# app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
+# app.config['TEMPLATES_AUTO_RELOAD'] = True
+
+# Setup camera
+camera = Camera()
 
 if not os.path.exists('static/pic'):
     os.makedirs('static/pic')
@@ -121,6 +123,7 @@ def _cmd(cmd=None):
             for j in range(0, column - 1):
                 im_r2[i, j] = 0 - 1 * im_db[i, j + 1] + 1 * im_db[i + 1, j] + 0
                 im_r2[i, j] = im_r2[i, j] * im_r2[i, j]
+
         gradient = np.zeros((row, column))
         for i in range(0, row - 1):
             for j in range(0, column - 1):
@@ -180,4 +183,4 @@ def video_feed():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=4000, debug=False, threaded=True)
+    app.run(host='0.0.0.0', port=4000, debug=True, threaded=True)

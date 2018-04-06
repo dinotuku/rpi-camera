@@ -80,30 +80,32 @@ def _cmd(cmd=None):
     camera.state = 'close'
 
     if cmd == 'brightness':
-        camera.brightness = int(request.args.get('level'))
+        new_brightness = int(request.args.get('level'))
         camera.state = 'open'
-    if cmd == 'contrast':
-        camera.contrast = int(request.args.get('level'))
-        camera.state = 'open'
-    if cmd == 'saturation':
-        camera.saturation = int(request.args.get('level'))
-        camera.state = 'open'
-    elif cmd == 'awb_mode':
-        camera.awb_mode = request.args.get('mode')
-    elif cmd == 'exposure_mode':
-        camera.exposure_mode = request.args.get('mode')
-    elif cmd == 'image_effect':
-        camera.image_effect = request.args.get('mode')
-    elif cmd == 'rotate':
-        camera.rotation = (camera.rotation + 90) % 360
-    elif cmd == 'remove':
-        idx = int(request.args.get('index'))
-        files = [name for name in os.listdir('static/pic') if os.path.isfile(
-            os.path.join('static/pic', name)) and name[:5] == 'image']
-        files.sort()
-        os.remove(os.path.join('static/pic', list(reversed(files))[idx]))
 
-        return redirect(url_for('gallery'))
+        camera.brightness = new_brightness
+    if cmd == 'contrast':
+        new_contrast = int(request.args.get('level'))
+        camera.state = 'open'
+
+        camera.contrast = new_contrast
+    if cmd == 'saturation':
+        new_saturation = int(request.args.get('level'))
+        camera.state = 'open'
+
+        camera.saturation = new_saturation
+    elif cmd == 'awb_mode':
+        new_awb_mode = request.args.get('mode')
+
+        camera.awb_mode = new_awb_mode
+    elif cmd == 'exposure_mode':
+        new_exposure_mode = request.args.get('mode')
+
+        camera.exposure_mode = new_exposure_mode
+    elif cmd == 'image_effect':
+        new_image_effect = request.args.get('mode')
+
+        camera.image_effect = new_image_effect
     elif cmd == 'homework':
         frame = camera.get_frame()
         im = Image.open(io.BytesIO(frame))
@@ -112,6 +114,7 @@ def _cmd(cmd=None):
         im_grey = im.convert('L')
         im_array = np.array(im_grey)
         im_db = im_array / 255.
+
         im_r1 = np.zeros((row, column))
         for i in range(0, row - 1):
             for j in range(0, column - 1):
@@ -163,6 +166,14 @@ def _cmd(cmd=None):
 
         timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
         image.save("static/pic/image_{}_{}.jpg".format(counter, timestamp), "JPEG")
+    elif cmd == 'remove':
+        idx = int(request.args.get('index'))
+        files = [name for name in os.listdir('static/pic') if os.path.isfile(
+            os.path.join('static/pic', name)) and name[:5] == 'image']
+        files.sort()
+        os.remove(os.path.join('static/pic', list(reversed(files))[idx]))
+
+        return redirect(url_for('gallery'))
 
     return redirect(url_for('index'))
 

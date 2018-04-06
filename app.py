@@ -17,7 +17,7 @@ from PIL import Image
 
 # Simple argument parser
 parser = ArgumentParser()
-parser.add_argument('-t', '--test', action='store_true', description='Run this app without using rpi camera')
+parser.add_argument('-t', '--test', action='store_true', help='Run this app without using rpi camera')
 args = parser.parse_args()
 
 if args.test:
